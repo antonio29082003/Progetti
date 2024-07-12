@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generatore password</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <h1 class="text-center p-5 ">Generatore Password Complesse</h1>
+    <div class="bg-green-500 p-10 flex flex-col items-center">
+        <div class="p-3 border-2 bg-lime-400 m-1 w-1/3">
+            <label for="">Lunghezza</label>
+            <input type="number" id="lunghezza" min="5" max="20" value="10">
+        </div>
+        <div class="p-3 border-2 bg-lime-400 m-1 w-1/3">
+            <label for="caratteri-minuscoli">Caratteri Minuscoli</label>
+            <input type="checkbox" id="caratteri-minuscoli" checked>
+        </div>
+        <div class="p-3 border-2 bg-lime-400 m-1 w-1/3">
+            <label for="caratteri-maiuscoli">Caratteri Maiuscoli</label>
+            <input type="checkbox" id="caratteri-maiuscoli" checked>
+        </div>
+        <div class="p-3 border-2 bg-lime-400 m-1 w-1/3">
+            <label for="caratteri-numerici">Caratteri Numerici</label>
+            <input type="checkbox" id="caratteri-numerici" checked>
+        </div>
+        <div class="p-3 border-2 bg-lime-400 m-1 w-1/3">
+            <label for="caratteri-speciali">Caratteri Speciali</label>
+            <input type="checkbox" id="caratteri-speciali" checked>
+        </div>
+        <button id="genera-btn" class="bg-white p-2 mt-5">Genera Password</button>
+        <div id="risultato" class="bg-lime-300 text-center mt-5 w-1/3"></div>
+    </div>
+    <script>
+        const lunghezzaPassword = document.querySelector("#lunghezza")
+        const caratteriMinuscoli = document.querySelector("#caratteri-minuscoli")
+        const caratteriMaiuscoli = document.querySelector("#caratteri-maiuscoli")
+        const caratteriNumerici = document.querySelector("#caratteri-numerici")
+        const caratteriSpeciali = document.querySelector("#caratteri-speciali")
+        const generaBtn = document.querySelector("#genera-btn")
+        const risultatoDiv = document.querySelector("#risultato")
+
+        const listaCaratteriMinuscoli = "abcdefghijklmnopqrstuvwxyz"
+        const listaCaratteriMaiuscoli = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        const listaCaratteriNumerici = "0123456789"
+        const listaCaratteriSpeciali = "!\"#$%&'()*+,-.\:;<=>?@[\\]^_'{|}~)"
+
+        generaBtn.addEventListener("click", generaPassword)
+
+        function generaPassword() {
+            let stringaIniziale = ""
+            let risultato = ""
+
+            if (caratteriMinuscoli.checked) {
+                stringaIniziale += listaCaratteriMinuscoli
+            }
+            if (caratteriMaiuscoli.checked) {
+                stringaIniziale += listaCaratteriMaiuscoli
+            }
+            if (caratteriNumerici.checked) {
+                stringaIniziale += listaCaratteriNumerici
+            }
+            if (caratteriSpeciali.checked) {
+                stringaIniziale += listaCaratteriSpeciali
+            }
+
+            for (let i = 0; i < lunghezzaPassword.value; i++) {
+                risultato += stringaIniziale.charAt(
+                    Math.floor(Math.random() * stringaIniziale.length)
+                )
+            }
+            risultatoDiv.innerHTML = risultato
+        }
+    </script>
+</body>
+
+</html>
